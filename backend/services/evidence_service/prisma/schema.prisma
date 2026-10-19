@@ -1,0 +1,26 @@
+generator client {
+ provider = "prisma-client-js"
+ engineType = "client"
+ output = "../generated"
+}
+datasource db {
+ provider = "postgresql"
+ url = env("EVIDENCE_DATABASE_URL")
+}
+model web_source {
+ id String @id @default(uuid()) @db.Uuid
+ project_id String @db.Uuid
+ url String
+ title String
+ text String
+ content_hash String
+ document_id String @db.Uuid
+ fetched_at DateTime @default(now())
+ @@index([project_id, fetched_at])
+}
+
+model service_migration {
+ version String @id
+ checksum String
+ applied_at DateTime @default(now()) @db.Timestamptz(6)
+}

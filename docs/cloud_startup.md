@@ -1,0 +1,30 @@
+# Reusable cloud startup instructions
+
+Use the existing checkout at `/workspace/Research`. Each cloud task is isolated; do not create a Git worktree unless the user requests it. Read README.md and docs/architecture.md. Preserve snake_case names, verb–noun functions, independent service ownership, existing data and cross-service IDs without foreign keys.
+
+The install script is `scripts/install_environment.sh`. It executes the lockfile install, generates nine service Prisma clients, installs pinned scientific Python dependencies, checks OCR prerequisites, prepares the digest-pinned Docker test image and builds the frontend. It does not start live application services or publish anything. Requires Node 24.14+, Python 3.12+, Docker, Chromium, Tesseract and Poppler; these were available and exercised in the onboarding machine.
+
+Retained files include dependencies, generated clients, frontend output, private `.env`/`.env.local` and local PostgreSQL data. Do not print credentials, dump environment values or commit private configuration. Docker daemon state/images and live processes must not be assumed to survive restoration. Run setup if required artifacts are absent; `npm run setup` restores the digest-pinned container image. Configuration precedence is injected runtime bindings, then `.env`, then generated `.env.local`. Never print any of these values.
+
+From `/workspace/Research`, start `npm run dev` in a long-running execution session. It starts persistent loopback PostgreSQL, applies transactional checksum-checked SQL migrations and launches ten domain/gateway services plus six independent agent workers. Do not launch duplicate database clusters or service groups. Inspect startup failures and stop only processes started for this workflow.
+
+Run `npm run check:connections` and `npm run check:readiness` from a second session. The connection check verifies database access and configuration without paid model calls; `-- --probe-models` explicitly performs six small live Azure chat requests only when configured. It checks fifteen private service/agent health endpoints, database access behind nine data-owning services, the served frontend and rejection of unauthenticated API access. Poll briefly during startup. Readiness is supplemented by functional checks, not established by a PID or port.
+
+In the local development database and explicitly labelled simulation mode:
+
+- `npm test` exercises financial/scientific computations, formal checks, retrieval, diagram escaping, provider contract logic and actual Docker implementation-test isolation, failure, zero-test and timeout handling.
+- `npm run test:integration` checks authentication, origin checks, projects, uploads, retrieval, financial scenarios, baseline/proposal comparison snapshots, diagrams, agent handoffs, reports and logout, removing its own fixtures.
+- `npm run test:advanced` checks company briefs, versioned original documents, XLSX, image/scanned-PDF OCR, scientific receipts, matrices, proactive Monte Carlo, saved plans and budgets, PDF/Word/slides, cancellation and revoked-cookie replay. It retains a clearly named verification project.
+- `npm run test:browser` exercises desktop and phone UI flows, including actual symbolic computation and disposable implementation tests, and retains ignored screenshots and clearly named projects.
+- `npm run test:offline` validates the PWA manifest, service worker, offline notes and absence of cached private API responses.
+- `npm run test:providers` performs real HTTPS requests against a clearly labelled local chat/image fixture, preserving TLS verification and existing trust. It does not establish live Azure readiness.
+
+Never run fixture suites against production data or paid live-model mode. Check the required service configuration first. In simulation, agent prose and planning are fixed test output; numerical tools, OCR, code unit tests and exports execute for real. Explicit user source downloads still use the network.
+
+Owner login is required. Use its password privately from secure configuration during browser automation. Do not create user-facing localhost preview links; the onboarding UI does not support them. Phone access outside the host requires a separate HTTPS deployment, exact PUBLIC_ORIGIN, production Secure cookies, unique secrets and private internal networking. No public hosting is implied by environment publication. The PWA supports installation and offline notes, not offline AI research.
+
+Azure/Supabase credentials remain deferred by user request. `.env.example` documents all nine service PostgreSQL URLs, Azure deployments/key, optional image and Brave settings, agent/service URLs and runtime paths. Switch to live Azure only after compatible deployments and secure bindings are supplied. Add actual provider/source hostnames to environment networking when needed. Honor existing authenticated proxy bindings and verified TLS. Wikipedia discovery and full-text import were tested; when local DNS is unavailable, proxy-side DNS is limited to explicitly approved public source names (`RESEARCH_SOURCE_DOMAINS`, with Wikipedia approved by default). Private literal addresses remain blocked. Broad Brave search, real Azure reasoning/images and Supabase need live validation. Supabase requires PostgreSQL connections and an authorized database route, not an anon browser key.
+
+Keep the execution service on a trusted host with Docker access, and keep that daemon inaccessible to user code. Its sandbox containers have no host mounts or injected API keys, no network, read-only root, unprivileged UID, dropped capabilities and bounded resources. Agent-selected code tests are disabled unless enabled for that particular investigation.
+
+Store the full install script and these instructions in environment `install_script` and `start_skill`. Saving is distinct from runtime execution and publication. Review and save environment settings, then publish the environment snapshot when appropriate; publication does not deploy the web app publicly.

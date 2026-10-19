@@ -1,0 +1,22 @@
+generator client {
+ provider = "prisma-client-js"
+ engineType = "client"
+ output = "../generated"
+}
+datasource db {
+ provider = "postgresql"
+ url = env("WORKSPACE_DATABASE_URL")
+}
+
+model project {
+  id String @id @default(uuid()) @db.Uuid
+  name String @db.VarChar(160)
+  brief Json?
+  created_at DateTime @default(now())
+}
+
+model service_migration {
+ version String @id
+ checksum String
+ applied_at DateTime @default(now()) @db.Timestamptz(6)
+}

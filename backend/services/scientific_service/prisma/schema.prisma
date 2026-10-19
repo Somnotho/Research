@@ -1,0 +1,24 @@
+generator client {
+ provider = "prisma-client-js"
+ engineType = "client"
+ output = "../generated"
+}
+datasource db {
+ provider = "postgresql"
+ url = env("SCIENTIFIC_DATABASE_URL")
+}
+model experiment {
+ id String @id @default(uuid()) @db.Uuid
+ project_id String @db.Uuid
+ operation String
+ input Json
+ result Json
+ created_at DateTime @default(now())
+ @@index([project_id, created_at])
+}
+
+model service_migration {
+ version String @id
+ checksum String
+ applied_at DateTime @default(now()) @db.Timestamptz(6)
+}

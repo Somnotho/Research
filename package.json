@@ -1,0 +1,80 @@
+{
+  "name": "research_office",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "setup": "tsx scripts/prepare_environment.ts",
+    "dev": "tsx scripts/start_services.ts",
+    "build": "tsc --noEmit && vite build --config frontend/vite.config.ts",
+    "test": "tsx --test tests/*.test.ts",
+    "test:integration": "tsx tests/verify_services.ts",
+    "test:browser": "tsx tests/verify_browser.ts",
+    "check:readiness": "tsx scripts/verify_readiness.ts",
+    "test:advanced": "tsx tests/verify_advanced.ts",
+    "test:providers": "tsx tests/verify_model_http.ts",
+    "test:offline": "tsx tests/verify_offline.ts",
+    "format": "prettier --write backend frontend/src frontend/public frontend/index.html scripts tests docs README.md *.json",
+    "format:check": "prettier --check backend frontend/src frontend/public frontend/index.html scripts tests docs README.md *.json",
+    "check:connections": "tsx scripts/verify_connections.ts"
+  },
+  "dependencies": {
+    "@fastify/cookie": "^11.0.2",
+    "@fastify/multipart": "^9.2.1",
+    "@fastify/rate-limit": "^10.3.0",
+    "@fastify/static": "^10.1.6",
+    "@prisma/adapter-pg": "^6.19.0",
+    "@prisma/client": "6.19.0",
+    "cheerio": "^1.2.0",
+    "docx": "^9.5.1",
+    "dompurify": "^3.3.0",
+    "embedded-postgres": "18.4.0-beta.17",
+    "exceljs": "^4.4.0",
+    "fastify": "^5.6.1",
+    "ipaddr.js": "^2.5.0",
+    "katex": "^0.18.10",
+    "mammoth": "^1.11.0",
+    "marked": "^16.4.0",
+    "marked-katex-extension": "^5.1.13",
+    "pdf-parse": "1.1.1",
+    "pg": "^8.23.1",
+    "playwright-core": "^1.64.1",
+    "pptxgenjs": "^4.0.1",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "sanitize-html": "^2.18.1",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.64.1",
+    "@types/katex": "^0.16.8",
+    "@types/node": "^24.10.0",
+    "@types/pdf-parse": "^1.1.5",
+    "@types/pg": "^8.23.1",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
+    "@types/sanitize-html": "^2.16.2",
+    "prettier": "^3.9.10",
+    "prisma": "6.19.0",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3",
+    "vite": "^7.1.12"
+  },
+  "overrides": {
+    "@prisma/config": {
+      "deepmerge-ts": "^8.0.0",
+      "effect": "^3.20.0"
+    },
+    "mammoth": {
+      "argparse": "^2.0.1"
+    },
+    "pptxgenjs": {
+      "image-size": "^2.0.3"
+    },
+    "exceljs": {
+      "uuid": "^11.1.1"
+    }
+  },
+  "engines": {
+    "node": ">=24.14.0"
+  }
+}
